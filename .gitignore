@@ -1,0 +1,5 @@
+__debug_bin
+test.db
+*.log
+.idea/
+go_build_cloud*
