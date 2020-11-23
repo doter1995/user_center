@@ -2,4 +2,5 @@ __debug_bin
 test.db
 *.log
 .idea/
-go_build_cloud*
+go_build_*_go
+test.db

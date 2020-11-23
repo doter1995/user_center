@@ -1,0 +1,13 @@
+server:
+  port: 8081
+database:
+  type: sqlite3
+  url: "test.db"
+  prot: 3396
+  username: "root"
+  pasword: "password"
+
+security:
+  token:
+    auth: "doter1995"
+    slate: "test"

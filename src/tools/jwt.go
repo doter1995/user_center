@@ -14,16 +14,20 @@ type Claims struct {
 	AuthCode string `json:"authCode"`
 	jwt.StandardClaims
 }
+type TokenConfig struct {
+	Auth  string
+	Slate string
+}
 
 //GenerateToken 生成Token
-func GenerateToken(c Claims) (string, error) {
+func GenerateToken(c Claims, config TokenConfig) (string, error) {
 	c.StandardClaims = jwt.StandardClaims{
 		ExpiresAt: time.Now().Add(1 * time.Hour).Unix(), // 过期时间
 		IssuedAt:  time.Now().Unix(),                    // 颁发时间
-		Issuer:    "doter1995",                          //颁发人
+		Issuer:    config.Auth,                          //颁发人
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
-	tokenString, err := token.SignedString([]byte("test"))
+	tokenString, err := token.SignedString([]byte(config.Slate))
 	if err != nil {
 		return "", errors.New("jwt: token signing failed: " + err.Error())
 	}
@@ -32,13 +36,13 @@ func GenerateToken(c Claims) (string, error) {
 }
 
 //VerifyToken 校验
-func VerifyToken(tokenString string) (Claims, error) {
+func VerifyToken(tokenString string, config TokenConfig) (Claims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &Claims{},
 		func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 				return nil, errors.New("jwt: unexpected signing method")
 			}
-			return []byte("test"), nil
+			return []byte(config.Slate), nil
 		})
 	if err != nil {
 		return Claims{}, errors.New("jwt: ParseWithClaims failed: " + err.Error())
@@ -51,7 +55,9 @@ func VerifyToken(tokenString string) (Claims, error) {
 	if !ok {
 		return Claims{}, errors.New("jwt: failed to get token claims")
 	}
-
+	if c.Issuer != config.Auth {
+		return Claims{}, errors.New("jwt: Issuer is not valid")
+	}
 	if c.Username == "" {
 		return Claims{}, errors.New("jwt: UserID claim is not valid")
 	}

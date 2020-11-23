@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"github.com/doter1995/user_center/src/config"
 	"github.com/doter1995/user_center/src/tools"
 	"github.com/gin-gonic/gin"
 	"net/http"
@@ -26,7 +27,7 @@ func Authentication(c *gin.Context) {
 		c.Abort()
 		return
 	}
-	_, err := tools.VerifyToken(parts[1])
+	_, err := tools.VerifyToken(parts[1], config.Config.Security.Token)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"code": "1"})
 	}
