@@ -22,3 +22,18 @@ func (s *UserLoginService) Login() (int, string) {
 	}
 	return 0, token
 }
+func (s *UserRegisterService) Register() bool {
+	u := model.User{
+		Username: s.Username,
+		Password: s.Password,
+		Status:   0,
+		Email:    s.Email,
+		AuthCode: tools.GetOTPSecret(),
+	}
+	u1 := model.CreateUser(u)
+	if u1.Username == "" {
+		return false
+	}
+	sendRegisterEmail(u, u.AuthCode)
+	return true
+}

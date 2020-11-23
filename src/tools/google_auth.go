@@ -12,7 +12,7 @@ import (
 )
 
 //GetSecret 获取密钥
-func GetSecret() string {
+func GetOTPSecret() string {
 	var buf bytes.Buffer
 	binary.Write(&buf, binary.BigEndian, un())
 	sha1Code := base32.StdEncoding.EncodeToString(hmacSha1(buf.Bytes(), nil))

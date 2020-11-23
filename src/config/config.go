@@ -25,6 +25,12 @@ type Schema struct {
 			Slate string
 		}
 	}
+	Email struct{
+		Smtp string
+		Host string
+		Account string
+		Password string
+	}
 }
 
 func InitConfig(filePath string) Schema {

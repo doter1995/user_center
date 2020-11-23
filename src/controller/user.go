@@ -18,3 +18,14 @@ func UserLogin(c *gin.Context) {
 	}
 	c.JSON(200, ResponseWithToken{Code: code, Token: token})
 }
+func UserRegister(c *gin.Context) {
+	s := service.UserRegisterService{}
+	if c.ShouldBindJSON(&s) != nil {
+		c.JSON(200, Response{Code: -1, Msg: "用户存在"})
+		return
+	}
+	s.Register()
+	c.JSON(200, Response{Code: 0})
+	return
+
+}

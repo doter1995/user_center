@@ -11,3 +11,8 @@ security:
   token:
     auth: "doter1995"
     slate: "test"
+email:
+  host: "smtp.qq.com"
+  smtp: "smtp.qq.com:25"
+  account: "doter1995@qq.com"
+  password: ""

@@ -15,9 +15,10 @@ func InitRouter(s *gin.Engine) {
 }
 
 func initUserRouter(router *gin.RouterGroup) {
-	router.POST("/register")                    // 用户注册
-	router.POST("/login", controller.UserLogin) // 登录
+	router.POST("/register", controller.UserRegister) // 用户注册
+	router.POST("/login", controller.UserLogin)       // 登录
 }
+
 func initUserInfoRouter(router *gin.RouterGroup) {
 	router.POST("/changePassword")
 }
