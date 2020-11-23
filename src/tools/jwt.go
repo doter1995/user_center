@@ -11,9 +11,9 @@ import (
 type Claims struct {
 	Username string `json:"username"`
 	Status   int    `json:"status"`
-	AuthCode string `json:"authCode"`
 	jwt.StandardClaims
 }
+
 type TokenConfig struct {
 	Auth  string
 	Slate string

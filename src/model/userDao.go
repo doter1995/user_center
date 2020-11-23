@@ -7,6 +7,7 @@ type User struct {
 	Username string `gorm:"type:varchar(100);not null;unique_index"`
 	Password string `gorm:"type:varchar(160);not null"`
 	Email    string `gorm:"type:varchar(160)"`
+	Status   int    `gorm:"type:int(2)`
 	Icon     string
 	Info     string
 	AuthCode string `gorm:"type:varchar(100);not null"`

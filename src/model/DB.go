@@ -37,8 +37,9 @@ func InitDB() {
 }
 
 func migrateDB() {
+	slate := config.Config.Security.Token.Slate
 	DB.AutoMigrate(&User{})
-	u := CreateUser(User{Username: "admin", Password: tools.GetMD5Code("doter1995", "doter1995"), AuthCode: "MPNP3K3LBG4EUGDZMZUOIODSKR2PXBM6"})
+	u := CreateUser(User{Username: "admin", Password: tools.GetMD5Code("doter1995", slate), AuthCode: "MPNP3K3LBG4EUGDZMZUOIODSKR2PXBM6"})
 	if u.Username == "" {
 		tools.Logger.Info().Msg("成功创建admin用户")
 	} else {
