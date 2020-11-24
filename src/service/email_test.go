@@ -12,9 +12,8 @@ func Test_sendRegisterEmail(t *testing.T) {
 	tools.InitLog()
 	u := model.User{
 		Username: "doter1995",
-		Email:    "wdzhang@thoughtworks.com",
+		Email:    "doter1995@163.com",
 		AuthCode: "MPNP3K3LBG4EUGDZMZUOIODSKR2PXBM6",
 	}
 	sendRegisterEmail(u, "MPNP3K3LBG4EUGDZMZUOIODSKR2PXBM6")
-
 }

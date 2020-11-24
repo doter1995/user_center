@@ -31,7 +31,6 @@ func Authentication(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"code": "1"})
 	}
-
 	c.Next()
 }
 

@@ -27,5 +27,4 @@ func UserRegister(c *gin.Context) {
 	s.Register()
 	c.JSON(200, Response{Code: 0})
 	return
-
 }
