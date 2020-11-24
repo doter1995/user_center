@@ -37,3 +37,14 @@ func (s *UserRegisterService) Register() bool {
 	sendRegisterEmail(u, u.AuthCode)
 	return true
 }
+func FindUserById(id string) (model.User, error) {
+	return model.FindUserById(id)
+}
+func (s *User) FindUsers(pageSize int, page int) (model.UserPagination, error) {
+	user := model.User{
+		Username: s.Username,
+		Email:    s.Email,
+		Status:   s.Status,
+	}
+	return model.FindUser(pageSize, page, user)
+}

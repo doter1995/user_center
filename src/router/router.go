@@ -21,4 +21,8 @@ func initUserRouter(router *gin.RouterGroup) {
 
 func initUserInfoRouter(router *gin.RouterGroup) {
 	router.POST("/changePassword")
+	router.GET("/user/:id", controller.GetUserById)
+	router.PUT("/user/:id")
+	router.DELETE("/user/:id")
+	router.GET("/users/:pageSize/:page", controller.GetUsers)
 }

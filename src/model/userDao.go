@@ -20,10 +20,10 @@ func FindUserByUsername(username string) User {
 	return u
 }
 
-func FindUserById(id uint) User {
+func FindUserById(id string) (User, error) {
 	var u User
-	DB.Where("id = ?", id).First(&u)
-	return u
+	result := DB.First(&u, id)
+	return u, result.Error
 }
 
 //CreateUser 创建用户
@@ -35,4 +35,43 @@ func CreateUser(u User) User {
 		return u
 	}
 	return u1
+}
+
+func FindUser(pageSize int, page int, u User) (UserPagination, error) {
+	users := make([]User, 0)
+	userPage := UserPagination{}
+	var total int64 = 0
+	db := DB.Model(&User{})
+	if u.ID != 0 {
+		db.Where("ID= ?", u.ID)
+	}
+	if u.Username != "" {
+		db.Where("username = ?", u.Username)
+	}
+
+	if u.Status != 0 {
+		db.Where("status = ?", u.Status)
+	}
+	db.Count(&total)
+	if pageSize > 0 {
+		userPage.PageSize = pageSize
+		db.Limit(pageSize)
+	} else {
+		userPage.PageSize = 1000
+		db.Limit(1000)
+	}
+	if page > 1 {
+		userPage.Page = page
+		db.Offset((page - 1) * pageSize)
+	} else {
+		userPage.Page = 1
+		db.Offset(0)
+	}
+
+	if err := DB.Find(&users).Error; err != nil {
+		return userPage, err
+	}
+	userPage.Data = users
+	userPage.Total = int(total)
+	return userPage, nil
 }

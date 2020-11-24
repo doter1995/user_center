@@ -9,7 +9,15 @@ type UserLoginService struct {
 
 // UserRegisterService 用户登陆字段校验
 type UserRegisterService struct {
-	Username  string `json:"username" binding:"required,min=6,max=16"`
-	Email     string `json:"email" binding:"required"`
-	Password  string `json:"password" binding:"required,min=6,max=16"`
+	Username string `json:"username" binding:"required,min=6,max=16"`
+	Email    string `json:"email" binding:"required"`
+	Password string `json:"password" binding:"required,min=6,max=16"`
 }
+
+//User 用于User查询
+type User struct {
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Status   int    `json:"status"`
+}
+
