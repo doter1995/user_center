@@ -3,14 +3,15 @@ package model
 import "gorm.io/gorm"
 
 type User struct {
-	gorm.Model
-	Username string `gorm:"type:varchar(100);not null;unique_index"`
-	Password string `gorm:"type:varchar(160);not null"`
-	Email    string `gorm:"type:varchar(160)"`
-	Status   int    `gorm:"type:int(2)`
-	Icon     string
-	Info     string
-	AuthCode string `gorm:"type:varchar(100);not null"`
+	gorm.Model `json:"-"`
+	ID         uint   `gorm:"primarykey"`
+	Username   string `gorm:"type:varchar(100);not null;unique_index"`
+	Password   string `gorm:"type:varchar(160);not null" json:"-"`
+	Email      string `gorm:"type:varchar(160)"`
+	Status     int    `gorm:"type:int(2)`
+	Icon       string
+	Info       string
+	AuthCode   string `gorm:"type:varchar(100);not null" json:"-"`
 }
 
 //FindUserByUsername 通过username查找User

@@ -42,11 +42,10 @@ func GetUserById(c *gin.Context) {
 func GetUsers(c *gin.Context) {
 	var ps, p int
 	s := service.User{}
-	pageSize, _ := c.Params.Get("PageSize")
+	pageSize, _ := c.Params.Get("pageSize")
 	page, _ := c.Params.Get("page")
 	if c.ShouldBindJSON(&s) != nil {
-		c.JSON(403, nil)
-		return
+		s = service.User{}
 	}
 	ps, err := strconv.Atoi(pageSize)
 	if err != nil {
