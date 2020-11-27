@@ -58,7 +58,8 @@ func GetUsers(c *gin.Context) {
 	pages, err := s.FindUsers(ps, p)
 	if err != nil {
 		c.JSON(500, err)
+		return
 	}
 	c.JSON(200, pages)
-
+	return
 }

@@ -30,6 +30,8 @@ func Authentication(c *gin.Context) {
 	_, err := tools.VerifyToken(parts[1], config.Config.Security.Token)
 	if err != nil {
 		c.JSON(http.StatusUnauthorized, gin.H{"code": "1"})
+		c.Abort()
+		return
 	}
 	c.Next()
 }

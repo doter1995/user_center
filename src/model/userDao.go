@@ -4,13 +4,13 @@ import "gorm.io/gorm"
 
 type User struct {
 	gorm.Model `json:"-"`
-	ID         uint   `gorm:"primarykey"`
-	Username   string `gorm:"type:varchar(100);not null;unique_index"`
+	ID         uint   `gorm:"primarykey" json:"id"`
+	Username   string `gorm:"type:varchar(100);not null;unique_index" json:"username"`
 	Password   string `gorm:"type:varchar(160);not null" json:"-"`
-	Email      string `gorm:"type:varchar(160)"`
-	Status     int    `gorm:"type:int(2)` //代表状态 0 正常，1代表锁定
-	Icon       string
-	Info       string
+	Email      string `gorm:"type:varchar(160)" json:"email"`
+	Status     int    `gorm:"type:int(2)" json:"status"` //代表状态 0 正常，1代表锁定
+	Icon       string `json:"icon"`
+	Info       string `json:"info"`
 	AuthCode   string `gorm:"type:varchar(100);not null" json:"-"`
 }
 
