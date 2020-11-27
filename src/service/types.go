@@ -18,6 +18,16 @@ type UserRegisterService struct {
 type User struct {
 	Username string `json:"username"`
 	Email    string `json:"email"`
-	Status   int    `json:"status"`
+	Status   int    `json:"status"` //代表状态 0 正常，1代表锁定
+}
+
+//App 用与应用管理查询
+type App struct {
+	ID     uint   `gorm:"primarykey"`
+	Name   string `gorm:"type:varchar(100);not null;unique_index"`
+	Info   string
+	Status int `gorm:"type:int(2)` //代表状态 0 正常，1代表锁定
+	Path   string
+	Code   string `gorm:"type:varchar(100);not null" json:"-"` //
 }
 

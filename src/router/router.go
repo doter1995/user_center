@@ -11,6 +11,7 @@ func InitRouter(s *gin.Engine) {
 	initUserRouter(api)
 	api.Use(middleware.Authentication)
 	initUserInfoRouter(api)
+	initAppInfoRouter(api)
 	api.Use(middleware.NextMiddleware)
 }
 
@@ -25,4 +26,11 @@ func initUserInfoRouter(router *gin.RouterGroup) {
 	router.PUT("/user/:id")
 	router.DELETE("/user/:id")
 	router.GET("/users/:pageSize/:page", controller.GetUsers)
+}
+func initAppInfoRouter(router *gin.RouterGroup) {
+	router.GET("/app/:id")
+	router.POST("/app/:id", controller.CreateApp)
+	//router.PUT("/app/:id", controller.UpdateApp)
+	//router.DELETE("/app/:id", controller.DeleteApp)
+	router.GET("/apps/:pageSize/:page", controller.GetApps)
 }

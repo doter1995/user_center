@@ -13,3 +13,10 @@ type UserPagination struct {
 	Total    int `json:"total"`
 	Data     []User
 }
+
+type AppPagination struct {
+	PageSize int `json:"pageSize"`
+	Page     int `json:"page"`
+	Total    int `json:"total"`
+	Data     []App
+}

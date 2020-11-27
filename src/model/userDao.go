@@ -8,7 +8,7 @@ type User struct {
 	Username   string `gorm:"type:varchar(100);not null;unique_index"`
 	Password   string `gorm:"type:varchar(160);not null" json:"-"`
 	Email      string `gorm:"type:varchar(160)"`
-	Status     int    `gorm:"type:int(2)`
+	Status     int    `gorm:"type:int(2)` //代表状态 0 正常，1代表锁定
 	Icon       string
 	Info       string
 	AuthCode   string `gorm:"type:varchar(100);not null" json:"-"`
