@@ -3,6 +3,7 @@ package controller
 import (
 	"github.com/doter1995/user_center/src/service"
 	"github.com/gin-gonic/gin"
+	"net/http"
 	"strconv"
 )
 
@@ -25,7 +26,7 @@ func UserLogout(c *gin.Context) {
 	name := c.GetString("tokenName")
 	service.RedisClearToken(name)
 	c.Header("token", "null")
-	c.JSON(403, Response{})
+	c.JSON(http.StatusUnauthorized, Response{})
 }
 func UserRegister(c *gin.Context) {
 	s := service.UserRegisterService{}
