@@ -17,7 +17,15 @@ func UserLogin(c *gin.Context) {
 		c.JSON(200, Response{Code: code, Msg: "登陆失败"})
 		return
 	}
+	c.Header("token", token)
 	c.JSON(200, ResponseWithToken{Code: code, Token: token})
+
+}
+func UserLogout(c *gin.Context) {
+	name := c.GetString("tokenName")
+	service.RedisClearToken(name)
+	c.Header("token", "null")
+	c.JSON(403, Response{})
 }
 func UserRegister(c *gin.Context) {
 	s := service.UserRegisterService{}

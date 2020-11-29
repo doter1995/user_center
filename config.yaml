@@ -16,3 +16,7 @@ email:
   smtp: "smtp.qq.com:25"
   account: "doter1995@qq.com"
   password: ""
+redis:
+  url: ""
+  db: 0
+  password: ""

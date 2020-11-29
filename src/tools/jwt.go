@@ -22,9 +22,9 @@ type TokenConfig struct {
 //GenerateToken 生成Token
 func GenerateToken(c Claims, config TokenConfig) (string, error) {
 	c.StandardClaims = jwt.StandardClaims{
-		ExpiresAt: time.Now().Add(1 * time.Hour).Unix(), // 过期时间
-		IssuedAt:  time.Now().Unix(),                    // 颁发时间
-		Issuer:    config.Auth,                          //颁发人
+		ExpiresAt: 0,                 // 永不过期，在redis中处理过期
+		IssuedAt:  time.Now().Unix(), // 颁发时间
+		Issuer:    config.Auth,       //颁发人
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, c)
 	tokenString, err := token.SignedString([]byte(config.Slate))

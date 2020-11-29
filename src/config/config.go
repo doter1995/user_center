@@ -25,10 +25,15 @@ type Schema struct {
 			Slate string
 		}
 	}
-	Email struct{
-		Smtp string
-		Host string
-		Account string
+	Email struct {
+		Smtp     string
+		Host     string
+		Account  string
+		Password string
+	}
+	Redis struct {
+		Url      string
+		DB       int
 		Password string
 	}
 }

@@ -68,9 +68,10 @@ func FindUser(pageSize int, page int, u User) (UserPagination, error) {
 		userPage.Page = 1
 		db.Offset(0)
 	}
-
-	if err := DB.Find(&users).Error; err != nil {
-		return userPage, err
+	if total != 0 {
+		if err := DB.Find(&users).Error; err != nil {
+			return userPage, err
+		}
 	}
 	userPage.Data = users
 	userPage.Total = int(total)

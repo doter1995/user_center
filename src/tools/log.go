@@ -15,6 +15,5 @@ func InitLog() {
 	zerolog.TimeFieldFormat = zerolog.TimeFormatUnix
 	//f, _ := os.Create("log.log")
 	logger :=  log.Output(os.Stdout)
-	logger.Info().Msg("this is test!!!")
 	Logger = logger
 }

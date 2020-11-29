@@ -25,8 +25,10 @@ func GetApps(c *gin.Context) {
 	pages, err := s.FindApps(ps, p)
 	if err != nil {
 		c.JSON(500, err)
+		return
 	}
 	c.JSON(200, pages)
+	return
 }
 
 // CreateApp 创建APP
@@ -34,7 +36,9 @@ func CreateApp(c *gin.Context) {
 	s := service.App{}
 	if err := c.ShouldBindJSON(&s); err != nil {
 		c.JSON(201, err)
+		return
 	}
 	status, err := s.CreateApp()
 	c.JSON(200, Response{Code: status, Error: err.Error()})
+	return
 }

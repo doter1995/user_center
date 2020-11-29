@@ -4,12 +4,12 @@ import "gorm.io/gorm"
 
 type App struct {
 	gorm.Model `json:"-"`
-	ID         uint   `gorm:"primarykey"`
-	Name       string `gorm:"type:varchar(100);not null;unique_index"`
-	Info       string
-	Path       string
-	Status     int    `gorm:"type:int(2)`                          //代表状态 0 正常，1代表锁定
-	Code       string `gorm:"type:varchar(100);not null" json:"-"` //预留字段 暂未想好后续实现
+	ID         uint   `gorm:"primarykey" json:"id"`
+	Name       string `gorm:"type:varchar(100);not null;unique_index" json:"name"`
+	Info       string `json:"info"`
+	Path       string `json:"path"`
+	Status     int    `gorm:"type:int(2)" json:"status"`              //代表状态 0 正常，1代表锁定
+	Code       string `gorm:"type:varchar(100);not null" json:"code"` //预留字段 暂未想好后续实现
 }
 
 func CreateApp(app App) App {
@@ -31,7 +31,7 @@ func FindApps(pageSize int, page int, app App) (AppPagination, error) {
 	apps := make([]App, 0)
 	appPage := AppPagination{}
 	var total int64 = 0
-	db := DB.Model(&User{})
+	db := DB.Model(&App{})
 	if app.ID != 0 {
 		db.Where("ID= ?", app.ID)
 	}
@@ -58,9 +58,12 @@ func FindApps(pageSize int, page int, app App) (AppPagination, error) {
 		db.Offset(0)
 	}
 
-	if err := DB.Find(&apps).Error; err != nil {
-		return appPage, err
+	if total != 0 {
+		if err := DB.Find(&apps).Error; err != nil {
+			return appPage, err
+		}
 	}
+
 	appPage.Data = apps
 	appPage.Total = int(total)
 	return appPage, nil

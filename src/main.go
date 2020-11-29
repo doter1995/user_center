@@ -15,6 +15,7 @@ import (
 func main() {
 	config.InitConfig(filepath.Base("./config.yaml"))
 	tools.InitLog()
+	tools.InitRedis()
 	model.InitDB()
 	startService()
 }
